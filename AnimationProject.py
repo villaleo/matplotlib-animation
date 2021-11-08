@@ -1,9 +1,9 @@
 """
-Project: Mathematics 270 - Starter Code for 2d Animations
-File: 2dAnimationStartCodeBlank.py
-Description: For creating objects and performing the animations.  
-             The linear transformations must be defined in the module "AnimationClassStudents.py" 
-Author: Dr. Greg Rainwater
+Project: Mathematics 270 - Linear Algebra Animation Project
+File: AnimationProject.py
+Description: Plots an image and animates it using vectors, linear transformations,
+             matrices, and other concepts taught throughout the linear algebra course.
+Author: Leonardo Villalobos
 """
 
 import matplotlib.pyplot as plot
@@ -13,26 +13,7 @@ import AnimationClass as Animate
 
 
 def main():
-    """
-    ------------------------------------------------------
-    Create Your Object(s)
-        Store the vertices of the object in a 2 x n matrix where
-        the x coordinates of the vertices are stored in first row and
-        the y coordinates in the second row.
-        Each successive pair of points is connected by a straight line.
-    ---
-    EXAMPLE:
-    ---
-    Consider the parallelogram formed by the vertices (2,0), (1,2), (2,4)
-    and (3,2). Form Object matrix using vertices as columns and adding starting
-    vector (2,0) onto tail/end (otherwise we would be missing a line) is
-        M=( 2 1 2 3 2; 0, 2, 4, 2 0)
-        M=np.matrix('2 1 2 3 2; 0, 2, 4, 2 0')
-        Obj1= Ani.Matrix(M)
-    ------------------------------------------------------
-    """
-
-    # Objects
+    # ------------------ Objects ------------------
     grass_pieces = [
         np.matrix(
             '-4 -4.9 -6.3 -6.7 -7 -7.4 -9 -9.2 -10 -9.2 -9 -7.4 -7 -6.7 -6.3 -4.9 -4;'
@@ -49,11 +30,11 @@ def main():
         '0.2 0.5 0.6 0.9 0.9 1 0.8 1.1 0.8 1.2 0.6 0.8 0.6 1.2 0.8 1.1 0.8 1 0.9 0.9 0.6 0.5 0.2'
     )
 
-    stem = np.matrix(
-        '-0.2 0.2 0.1 -0.7 -0.8;'
-        '-1 -0.4 0.2 1 1.6'
-    )
-    leaves = [
+    body = [
+        np.matrix(
+            '-0.2 0.2 0.1 -0.7 -0.8;'
+            '-1 -0.4 0.2 1 1.6'
+        ),
         np.matrix(
             '-0.22 0 0.3 0 -0.22;'
             '0.52 0.7 0.64 0.5 0.52'
@@ -100,11 +81,11 @@ def main():
         )
     ]
 
-    sun = np.matrix(
-        '-6.5 -5.7 -5 -5.4 -6.5 -6.5;'
-        '6.5 6.2 6.8 7.6 7.5 6.5'
-    )
     sun_rays = [
+        np.matrix(
+            '-6.5 -5.7 -5 -5.4 -6.5 -6.5;'
+            '6.5 6.2 6.8 7.6 7.5 6.5'
+        ),
         np.matrix(
             '-5.7 -5.5 -5.7;'
             '6.2 5 6.2'
@@ -127,42 +108,22 @@ def main():
         )
     ]
 
-    # Animation
-    animated_grass = [
-        Animate.Matrix(grass_pieces[0]),
-        Animate.Matrix(grass_pieces[1])
-    ]
+    # ------------------ End Objects ------------------
+
+    # ------------------ Animation ------------------
+    animated_grass = [Animate.Matrix(grass) for grass in grass_pieces]
     animated_horizon = Animate.Matrix(horizon)
-    animated_flower_body = [
-        Animate.Matrix(stem),
-        Animate.Matrix(leaves[0]),
-        Animate.Matrix(leaves[1])
-    ]
+    animated_flower_body = [Animate.Matrix(entry) for entry in body]
     animated_center = Animate.Matrix(center)
-    animated_petals = [
-        Animate.Matrix(petals[0]),
-        Animate.Matrix(petals[1]),
-        Animate.Matrix(petals[2]),
-        Animate.Matrix(petals[3]),
-        Animate.Matrix(petals[4]),
-        Animate.Matrix(petals[5]),
-        Animate.Matrix(petals[6])
-    ]
-    animated_sun = [
-        Animate.Matrix(sun),
-        Animate.Matrix(sun_rays[0]),
-        Animate.Matrix(sun_rays[1]),
-        Animate.Matrix(sun_rays[2]),
-        Animate.Matrix(sun_rays[3]),
-        Animate.Matrix(sun_rays[4]),
-    ]
+    animated_petals = [Animate.Matrix(petal) for petal in petals]
+    animated_sun = [Animate.Matrix(ray) for ray in sun_rays]
 
     plot.ion()
 
     for i in range(0, 35):
         animated_grass[0].plot(tcolor='green')
-        animated_horizon.plot(0, tcolor='green')
         animated_grass[1].plot(0, tcolor='green')
+        animated_horizon.plot(0, tcolor='green')
 
         for petal in animated_petals:
             petal.plot(0, tcolor='red')
@@ -217,3 +178,5 @@ def main():
 
         plot.gcf().canvas.flush_events()
         plot.pause(.2)
+
+    # ------------------ End Animation ------------------
