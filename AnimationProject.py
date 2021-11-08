@@ -159,7 +159,7 @@ def main():
 
     plot.ion()
 
-    for i in range(0, 20):
+    for i in range(0, 35):
         animated_grass[0].plot(tcolor='green')
         animated_horizon.plot(0, tcolor='green')
         animated_grass[1].plot(0, tcolor='green')
@@ -194,7 +194,7 @@ def main():
 
             for ray in animated_sun:
                 ray.translate(0.2, 0)
-                # TODO: Add rotation
+                ray.rotate(math.pi / 4, about='center')
         else:
             animated_grass[0].shear(-0.3)
             animated_grass[0].translate(-1.4, 0)
