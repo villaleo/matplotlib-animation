@@ -69,6 +69,37 @@ def main():
         '1.5 1.4 1.6 1.8 1.9 2 1.8 1.5'
     )
 
+    petals = [
+        np.matrix(
+            '-1 -1.4 -1;'
+            '2 2.5 2'
+        ),
+        np.matrix(
+            '-0.7 -0.5 -0.7;'
+            '1.9 2.5 1.9'
+        ),
+        np.matrix(
+            '-0.4 0.1 -0.4;'
+            '1.8 2.2 1.8'
+        ),
+        np.matrix(
+            '-0.4 0.1 -0.4;'
+            '1.6 1.4 1.6'
+        ),
+        np.matrix(
+            '-0.7 -0.5 -0.7;'
+            '1.4 1 1.4'
+        ),
+        np.matrix(
+            '-1 -1.5 -1;'
+            '1.5 1.3 1.5'
+        ),
+        np.matrix(
+            '-1.1 -1.6 -1.1;'
+            '1.8 1.9 1.8'
+        )
+    ]
+
     # Animation
     animated_grass = [
         Animate.Matrix(grass_pieces[0]),
@@ -81,6 +112,15 @@ def main():
         Animate.Matrix(leaves[1])
     ]
     animated_center = Animate.Matrix(center)
+    animated_petals = [
+        Animate.Matrix(petals[0]),
+        Animate.Matrix(petals[1]),
+        Animate.Matrix(petals[2]),
+        Animate.Matrix(petals[3]),
+        Animate.Matrix(petals[4]),
+        Animate.Matrix(petals[5]),
+        Animate.Matrix(petals[6])
+    ]
 
     plot.ion()
 
@@ -88,6 +128,9 @@ def main():
         animated_grass[0].plot(tcolor='green')
         animated_horizon.plot(0, tcolor='green')
         animated_grass[1].plot(0, tcolor='green')
+
+        for petal in animated_petals:
+            petal.plot(0, tcolor='red')
 
         for part in animated_flower_body:
             part.plot(0, tcolor='green')
@@ -103,6 +146,9 @@ def main():
             animated_grass[1].shear(0.3)
             animated_grass[1].translate(1, 0)
 
+            for petal in animated_petals:
+                petal.translate(0.2, 0)
+
             for part in animated_flower_body:
                 part.translate(0.2, 0)
 
@@ -115,6 +161,9 @@ def main():
 
             animated_grass[1].shear(-0.3)
             animated_grass[1].translate(-1, 0)
+
+            for petal in animated_petals:
+                petal.translate(-0.2, 0)
 
             for part in animated_flower_body:
                 part.translate(-0.2, 0)
