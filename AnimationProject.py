@@ -100,6 +100,33 @@ def main():
         )
     ]
 
+    sun = np.matrix(
+        '-6.5 -5.7 -5 -5.4 -6.5 -6.5;'
+        '6.5 6.2 6.8 7.6 7.5 6.5'
+    )
+    sun_rays = [
+        np.matrix(
+            '-5.7 -5.5 -5.7;'
+            '6.2 5 6.2'
+        ),
+        np.matrix(
+            '-6.5 -7.5 -6.5;'
+            '6.5 5.5 6.5'
+        ),
+        np.matrix(
+            '-5 -3.5 -5;'
+            '6.8 6 6.8'
+        ),
+        np.matrix(
+            '-5.4 -5 -5.4;'
+            '7.6 9 7.6'
+        ),
+        np.matrix(
+            '-6.5 -7.5 -6.5;'
+            '7.5 8.5 7.5'
+        )
+    ]
+
     # Animation
     animated_grass = [
         Animate.Matrix(grass_pieces[0]),
@@ -121,6 +148,14 @@ def main():
         Animate.Matrix(petals[5]),
         Animate.Matrix(petals[6])
     ]
+    animated_sun = [
+        Animate.Matrix(sun),
+        Animate.Matrix(sun_rays[0]),
+        Animate.Matrix(sun_rays[1]),
+        Animate.Matrix(sun_rays[2]),
+        Animate.Matrix(sun_rays[3]),
+        Animate.Matrix(sun_rays[4]),
+    ]
 
     plot.ion()
 
@@ -136,6 +171,9 @@ def main():
             part.plot(0, tcolor='green')
 
         animated_center.plot(0, tcolor='orange')
+
+        for ray in animated_sun:
+            ray.plot(0, tcolor='yellow')
 
         if i % 2 == 0:
             animated_grass[0].shear(0.3)
@@ -153,6 +191,10 @@ def main():
                 part.translate(0.2, 0)
 
             animated_center.translate(0.2)
+
+            for ray in animated_sun:
+                ray.translate(0.2, 0)
+                # TODO: Add rotation
         else:
             animated_grass[0].shear(-0.3)
             animated_grass[0].translate(-1.4, 0)
@@ -169,6 +211,9 @@ def main():
                 part.translate(-0.2, 0)
 
             animated_center.translate(-0.2)
+
+            for ray in animated_sun:
+                ray.translate(-0.2, 0)
 
         plot.gcf().canvas.flush_events()
         plot.pause(.2)
