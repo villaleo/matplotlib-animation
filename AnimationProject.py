@@ -64,6 +64,11 @@ def main():
         )
     ]
 
+    center = np.matrix(
+        '-1 -0.7 -0.4 -0.4 -0.7 -1 -1.1 -1;'
+        '1.5 1.4 1.6 1.8 1.9 2 1.8 1.5'
+    )
+
     # Animation
     animated_grass = [
         Animate.Matrix(grass_pieces[0]),
@@ -75,14 +80,19 @@ def main():
         Animate.Matrix(leaves[0]),
         Animate.Matrix(leaves[1])
     ]
+    animated_center = Animate.Matrix(center)
+
     plot.ion()
 
     for i in range(0, 20):
         animated_grass[0].plot(tcolor='green')
         animated_horizon.plot(0, tcolor='green')
         animated_grass[1].plot(0, tcolor='green')
+
         for part in animated_flower_body:
             part.plot(0, tcolor='green')
+
+        animated_center.plot(0, tcolor='orange')
 
         if i % 2 == 0:
             animated_grass[0].shear(0.3)
@@ -95,6 +105,8 @@ def main():
 
             for part in animated_flower_body:
                 part.translate(0.2, 0)
+
+            animated_center.translate(0.2)
         else:
             animated_grass[0].shear(-0.3)
             animated_grass[0].translate(-1.4, 0)
@@ -106,6 +118,8 @@ def main():
 
             for part in animated_flower_body:
                 part.translate(-0.2, 0)
+
+            animated_center.translate(-0.2)
 
         plot.gcf().canvas.flush_events()
         plot.pause(.2)
